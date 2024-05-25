@@ -1,78 +1,12 @@
 import React from "react";
+import DemoBanner from "./DemoBanner";
 
 
 function Demo() {
   return (
-    <>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-      <div>demo</div>
-    </>
+   <>
+   <DemoBanner/>
+   </>
   );
 }
 

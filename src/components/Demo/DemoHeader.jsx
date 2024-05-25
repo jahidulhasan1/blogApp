@@ -5,13 +5,12 @@ import Auth from "./auth/Auth";
 
 function DemoHeader() {
   const [active, setActive] = useState(false);
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   useEffect(() => {
     const scrooll = () => {
       scrollY > 150 ? setActive(true) : setActive(false);
     };
 
-    console.log(active);
     window.addEventListener("scroll", scrooll);
   }, []);
 
@@ -38,17 +37,17 @@ function DemoHeader() {
             ))}
           </div>
           <div className="relative">
-            <button 
-
-            onClick={()=> setModal(true)}
-            className="hidden sm:flex items-center ga-5">
+            <button
+              onClick={() => setModal(true)}
+              className="hidden sm:flex items-center ga-5"
+            >
               Sign in
             </button>
             <Auth modal={modal} setModal={setModal} />
           </div>
 
           <button
-           onClick={()=> setModal(true)}
+            onClick={() => setModal(true)}
             className={`"bg-black text-white rounded-full px-3 p-2 text:sm font-medium ${
               active ? "bg-green-600" : "bg-black"
             }`}
