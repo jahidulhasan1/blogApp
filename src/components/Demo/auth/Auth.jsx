@@ -6,10 +6,10 @@ import { MdFacebook } from "react-icons/md";
 import { AiOutlineMail } from "react-icons/ai";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-function Auth() {
+function Auth({modal,setModal}) {
   const [createUser, setCreateUser] = useState(false);
   const [signReq, setSignReq] = useState("");
-  const [modal, setModal] = useState(true);
+
   return (
     // modal =blur div
     <Modal modal={modal} setModal={setModal}>

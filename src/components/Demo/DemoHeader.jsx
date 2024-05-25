@@ -5,7 +5,7 @@ import Auth from "./auth/Auth";
 
 function DemoHeader() {
   const [active, setActive] = useState(false);
-
+  const [modal, setModal] = useState(true);
   useEffect(() => {
     const scrooll = () => {
       scrollY > 150 ? setActive(true) : setActive(false);
@@ -38,13 +38,17 @@ function DemoHeader() {
             ))}
           </div>
           <div className="relative">
-            <button className="hidden sm:flex items-center ga-5">
+            <button 
+
+            onClick={()=> setModal(true)}
+            className="hidden sm:flex items-center ga-5">
               Sign in
             </button>
-            <Auth />
+            <Auth modal={modal} setModal={setModal} />
           </div>
 
           <button
+           onClick={()=> setModal(true)}
             className={`"bg-black text-white rounded-full px-3 p-2 text:sm font-medium ${
               active ? "bg-green-600" : "bg-black"
             }`}
