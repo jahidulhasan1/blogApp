@@ -4,12 +4,10 @@ import Home from "./components/Home/Home";
 import HomeHeader from "./components/Home/HomeHeader";
 import DemoHeader from "./components/Demo/DemoHeader";
 function App() {
-  const auth= false;
+  const auth = false;
   return (
     <BrowserRouter>
-    {
-      auth ? <HomeHeader/>:<DemoHeader/>
-    }
+      {auth ? <HomeHeader /> : <DemoHeader />}
 
       <Routes>
         <Route path="/" element={<Home />} />
