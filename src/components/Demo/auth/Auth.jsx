@@ -6,9 +6,37 @@ import { MdFacebook } from "react-icons/md";
 import { AiOutlineMail } from "react-icons/ai";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
-function Auth({modal,setModal}) {
+import { signInWithPopup } from "firebase/auth";
+
+import { auth, db, provider } from "../../../firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+
+function Auth({ modal, setModal }) {
   const [createUser, setCreateUser] = useState(false);
   const [signReq, setSignReq] = useState("");
+const naviagte =useNavigate()
+  const googleAuthentic = async () => {
+    try {
+      const user = (await signInWithPopup(auth, provider)).user;
+      console.log("po");
+      const docRef = await addDoc(collection(db, "users"), {
+        name: user.displayName,
+        email: user.email,
+        imgUrl: user.photoURL,
+        userId: user.uid,
+        bio: "",
+      });
+      
+      setModal(false);
+      naviagte("/");
+      toast.success("User Sign in success")
+
+    } catch (error) {
+      toast.error(error.message)
+    }
+  };
 
   return (
     // modal =blur div
@@ -19,8 +47,9 @@ function Auth({modal,setModal}) {
         } transition-all duration-500`}
       >
         <button
-        onClick={()=> setModal(false)}
-        className=" top-8 right-8 absolute text-2xl hover:opacity-50">
+          onClick={() => setModal(false)}
+          className=" top-8 right-8 absolute text-2xl hover:opacity-50"
+        >
           <LiaTimesSolid />
         </button>
         <div className="flex flex-col justify-center items-center gap-[3rem]">
@@ -29,6 +58,7 @@ function Auth({modal,setModal}) {
               <h1 className="text-2xl font-bold text-center">Welcome to</h1>
               <div className="flex flex-col gap-5 w-fit mx-auto  ">
                 <Button
+                  click={googleAuthentic}
                   icon={<FcGoogle />}
                   text={`${createUser ? "Sign Up" : "Sign In"} With Google`}
                 />
