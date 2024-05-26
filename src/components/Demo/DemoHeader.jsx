@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { nav } from "../../data";
 import Auth from "./auth/Auth";
+import { useBlogContext } from "../../context/Context";
 
 function DemoHeader() {
+  const { currentUser } = useBlogContext();
   const [active, setActive] = useState(false);
   const [modal, setModal] = useState(false);
   useEffect(() => {

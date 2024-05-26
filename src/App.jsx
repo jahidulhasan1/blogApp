@@ -1,17 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Demo from "./components/Demo/Demo";
 import Home from "./components/Home/Home";
 import HomeHeader from "./components/Home/HomeHeader";
 import DemoHeader from "./components/Demo/DemoHeader";
+import { useBlogContext } from "./context/Context";
 function App() {
-  const auth = false;
+  const  {currentUser}  = useBlogContext()
   return (
     <BrowserRouter>
-      {auth ? <HomeHeader /> : <DemoHeader />}
+      {currentUser ? <HomeHeader /> : <DemoHeader />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/demo" element={<Demo />} />
+        {currentUser && <Route path="/" element={<Home />} />}
+        {!currentUser && <Route path="/demo" element={<Demo />} />}
+
+        <Route path="*" element= {<Navigate to={!currentUser ? "demo" : "/"} />} />
+
+
       </Routes>
     </BrowserRouter>
   );
