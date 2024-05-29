@@ -29,7 +29,7 @@ useEffect(() => {
 
 
   return (
-    <BlogContext.Provider value={{currentUser,setCurrentUser,loading}}>
+    <BlogContext.Provider value={{currentUser,setCurrentUser,loading,setLoading}}>
       {loading ? <Loading/>:children }
     </BlogContext.Provider>
   )

@@ -1,29 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../../../utils/Input";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../../firebase/firebase";
+import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
-function SignUp({ setSignReq }) {
+function SignUp({ setSignReq, setModal }) {
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    repassword: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(form);
+    if (
+      form.username == "" ||
+      form.email == "" ||
+      form.password == "" ||
+      form.repassword == ""
+    ) {
+      toast.error("All fields are required");
+      return;
+    } else if (form.password !== form.repassword) {
+      toast.error("Your passwords are not matching!!");
+      return;
+    } else {
+      try {
+        setLoading(true);
+        const user = (
+          await createUserWithEmailAndPassword(auth, form.email, form.password)
+        ).user;
+
+        const docRef = await addDoc(collection(db, "users"), {
+          username: form.username,
+          email: form.email,
+          imgUrl: "",
+          userId: user.uid,
+          bio: "",
+        });
+        navigate("/");
+        setModal(false);
+
+        toast.success("user Has been Created");
+      } catch (error) {
+        setLoading(false);
+        toast.error(error);
+      }
+    }
+  };
+
   return (
     <div className="size mt-[6rem] text-center w-full px-10 ">
       <h2 className="text-3xl">SignUp with Email</h2>
       <p className="w-full sm:w-[25rem] mx-auto py-[3rem]">
-        Enter the email address associated with your account, and we’ll send a
+        Enter the email address associated with your account, and we ll send a
         magic link to your inbox.
       </p>
-      <form className=" flex flex-col gap-4">
-        <Input type="text" title="username :" />
-        <Input type="email" title="email :" />
-        <Input type="password" title="password :" />
-        <Input type="password" title="Repassword :" />
+      <form onSubmit={handleSubmit} className=" flex flex-col gap-4">
+        <Input
+          type="text"
+          name="username"
+          title="username :"
+          form={form}
+          setForm={setForm}
+        />
+        <Input
+          type="email"
+          name="email"
+          title="email :"
+          form={form}
+          setForm={setForm}
+        />
+        <Input
+          type="password"
+          name="password"
+          title="password :"
+          form={form}
+          setForm={setForm}
+        />
+        <Input
+          type="password"
+          name="repassword"
+          title="repassword :"
+          form={form}
+          setForm={setForm}
+        />
 
         <button
           className={`px-8 py-2 text-lg rounded-full bg-green-700
-        hover:bg-green-800 text-white w-fit mx-auto
-  `}
+        hover:bg-green-800 text-white w-fit mx-auto ${
+          loading ? "opacity-50 pointer-events-none" : " "
+        }`}
         >
-          Sign In
+          Sign up
         </button>
       </form>
+
       <button
         onClick={() => setSignReq("")}
         className="mt-5 text-sm text-green-600 hover:text-green-700
@@ -37,3 +115,5 @@ function SignUp({ setSignReq }) {
 }
 
 export default SignUp;
+
+// {username: 'Mr-Rafi', email: 'rafi@gmail.com', password: 'poiuytrewq', repassword: 'poiuytrewq'}

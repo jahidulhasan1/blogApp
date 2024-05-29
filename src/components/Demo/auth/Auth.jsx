@@ -10,13 +10,14 @@ import { signInWithPopup } from "firebase/auth";
 
 import { auth, db, provider } from "../../../firebase/firebase";
 import { addDoc, collection } from "firebase/firestore";
-import {useNavigate} from 'react-router-dom'
-import {toast} from 'react-toastify'
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Auth({ modal, setModal }) {
   const [createUser, setCreateUser] = useState(false);
   const [signReq, setSignReq] = useState("");
-const naviagte =useNavigate()
+  const naviagte = useNavigate();
   const googleAuthentic = async () => {
     try {
       const user = (await signInWithPopup(auth, provider)).user;
@@ -28,13 +29,12 @@ const naviagte =useNavigate()
         userId: user.uid,
         bio: "",
       });
-      
+
+      toast.success("User Sign in success");
       setModal(false);
       naviagte("/");
-      toast.success("User Sign in success")
-
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
@@ -81,18 +81,18 @@ const naviagte =useNavigate()
                   className="text-green-600 hover:text-green-700 font-bold ml-1"
                 >
                   {" "}
-                  {createUser ? "Sign In" : "Create one"}
+                  {createUser ? "Sign in" : "Create one"}
                 </button>
               </p>
             </>
           ) : signReq == "sign-in" ? (
-            <SignIn setSignReq={setSignReq} />
+            <SignIn setModal={setModal} setSignReq={setSignReq} />
           ) : signReq == "sign-up" ? (
-            <SignUp setSignReq={setSignReq} />
+            <SignUp setModal={setModal} setSignReq={setSignReq} />
           ) : null}
           <p className="md:w-[30rem] mx-auto text-center text-sm mb-[3rem]">
-            Click “Sign In” to agree to Medium’s Terms of Service and
-            acknowledge that Medium’s Privacy Policy applies to you.
+            Click Sign In to agree to Mediums Terms of Service and acknowledge
+            that Mediums Privacy Policy applies to you.
           </p>
         </div>
       </section>
