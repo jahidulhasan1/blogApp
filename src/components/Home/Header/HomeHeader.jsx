@@ -15,7 +15,7 @@ function HomeHeader() {
   return (
     <header className="border-b border-gray-200">
       <div className="size h-[60px] flex items-center justify-between ">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 ">
           <Link to={"/"}>
             <span className="text-5xl">
               <BsMedium />
@@ -24,6 +24,11 @@ function HomeHeader() {
           <Search modal={searchModal} setModal={setSearchModal} />
         </div>
         <div className="flex items-center gap-3 sm:gap-7 ">
+        <span
+        onClick={()=> setSearchModal(true)}
+        className= "flex   text-3xl text-gray-300 cursor-pointer sm:hidden ">
+            <CiSearch />
+          </span>
           <Link
             to={"/write"}
             className="hidden md:flex items-center gap-1 text-gray-500"
@@ -33,7 +38,8 @@ function HomeHeader() {
             </span>
             <span className="text-sm mt-2"> write</span>
           </Link>
-          <span className="text-3xl text-gray-500 cursor-pointer ">
+        
+          <span className="text-3xl text-gray-500 cursor-pointer  ">
             <IoMdNotificationsOutline />
           </span>
           <div className="flex items-center relative cursor-pointer">
