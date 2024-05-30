@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Demo from "./components/Demo/Demo";
 import Home from "./components/Home/Home";
-import HomeHeader from "./components/Home/HomeHeader";
+import HomeHeader from "./components/Home/Header/HomeHeader";
 import DemoHeader from "./components/Demo/DemoHeader";
 import { useBlogContext } from "./context/Context";
 import { Slide, ToastContainer } from "react-toastify";
+
+
 function App() {
   const { currentUser } = useBlogContext();
   return (
@@ -17,7 +19,7 @@ function App() {
 
         <Route
           path="*"
-          element={<Navigate to={!currentUser ? "demo" : "/"} />}
+          element={<Navigate to={!currentUser ? "/demo" : "/"} />}
         />
       </Routes>
       <ToastContainer transition={Slide} />
