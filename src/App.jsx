@@ -5,7 +5,7 @@ import HomeHeader from "./components/Home/Header/HomeHeader";
 import DemoHeader from "./components/Demo/DemoHeader";
 import { useBlogContext } from "./context/Context";
 import { Slide, ToastContainer } from "react-toastify";
-
+import Profile from "./components/Home/profile/Profile";
 
 function App() {
   const { currentUser } = useBlogContext();
@@ -16,7 +16,7 @@ function App() {
       <Routes>
         {currentUser && <Route path="/" element={<Home />} />}
         {!currentUser && <Route path="/demo" element={<Demo />} />}
-
+        <Route path="/profile/:userId" element={<Profile />} />
         <Route
           path="*"
           element={<Navigate to={!currentUser ? "/demo" : "/"} />}

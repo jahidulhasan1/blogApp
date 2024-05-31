@@ -24,21 +24,22 @@ function HomeHeader() {
           <Search modal={searchModal} setModal={setSearchModal} />
         </div>
         <div className="flex items-center gap-3 sm:gap-7 ">
-        <span
-        onClick={()=> setSearchModal(true)}
-        className= "flex   text-3xl text-gray-300 cursor-pointer sm:hidden ">
+          <span
+            onClick={() => setSearchModal(true)}
+            className="flex   text-3xl text-gray-300 cursor-pointer sm:hidden "
+          >
             <CiSearch />
           </span>
           <Link
             to={"/write"}
             className="hidden md:flex items-center gap-1 text-gray-500"
           >
-            <span className="text-3xl">
+            <span className="text-2xl">
               <LiaEditSolid />
             </span>
-            <span className="text-sm mt-2"> write</span>
+            <span className="text-xl mt-1"> Write</span>
           </Link>
-        
+
           <span className="text-3xl text-gray-500 cursor-pointer  ">
             <IoMdNotificationsOutline />
           </span>
@@ -58,7 +59,7 @@ function HomeHeader() {
                   modal ? "visible opacity-100%" : "invisible opacity-0"
                 } transition-all duration-100 `}
               >
-                <UserModal />
+                <UserModal setModal={setModal} />
               </div>
             </Modal>
           </div>
