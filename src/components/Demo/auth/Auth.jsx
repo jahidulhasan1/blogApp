@@ -9,7 +9,7 @@ import SignUp from "./SignUp";
 import { signInWithPopup } from "firebase/auth";
 
 import { auth, db, provider } from "../../../firebase/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,23 +21,27 @@ function Auth({ modal, setModal }) {
   const googleAuthentic = async () => {
     try {
       const user = (await signInWithPopup(auth, provider)).user;
-      console.log("po");
-      const docRef = await addDoc(collection(db, "users"), {
-        name: user.displayName,
-        email: user.email,
-        imgUrl: user.photoURL,
-        userId: user.uid,
-        bio: "",
-      });
 
-      toast.success("User Sign in success");
-      setModal(false);
-      naviagte("/");
+      const ref = doc(db, "users", user.uid);
+      const userDoc = await getDoc(ref);
+
+      if (!userDoc.exists()) {
+        await setDoc(ref, {
+          userId: user.uid,
+          name: user.displayName,
+          email: user.email,
+          imgUrl: user.photoURL,
+          bio: "",
+        });
+
+        toast.success("User Sign in success");
+        setModal(false);
+        naviagte("/");
+      }
     } catch (error) {
       toast.error(error.message);
     }
   };
-
   return (
     // modal =blur div
     <Modal modal={modal} setModal={setModal}>

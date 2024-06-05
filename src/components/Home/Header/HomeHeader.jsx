@@ -3,17 +3,26 @@ import { BsMedium } from "react-icons/bs";
 import { CiSearch } from "react-icons/ci";
 import { LiaEditSolid } from "react-icons/lia";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdAllInbox, MdKeyboardArrowDown } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import Modal from "../../../utils/Modal";
 import UserModal from "./UserModal";
+import { useBlogContext } from "../../../context/Context";
+import Loading from "../../loading/Loading";
 
 function HomeHeader() {
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
+  const {allUser,currentUser,userLoading} = useBlogContext();
+  console.log(allUser)
+  const getuser = allUser.find((x)=> x.userId === currentUser?.uid);
+  console.log(getuser);
   return (
     <header className="border-b border-gray-200">
+      {
+        userLoading &&  <Loading/>
+      }
       <div className="size h-[60px] flex items-center justify-between ">
         <div className="flex items-center gap-3 ">
           <Link to={"/"}>
@@ -47,9 +56,11 @@ function HomeHeader() {
             <img
               onClick={() => setModal(true)}
               className="w-[2.3rem] h-[2.3rem] rounded-full cursor-pointer"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"
+              src={ getuser?.imgUrl ? getuser?.imgUrl : "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541"}
               alt="profile"
             />
+            {/* */}
+            {/*  */}
             <span>
               <MdKeyboardArrowDown />
             </span>

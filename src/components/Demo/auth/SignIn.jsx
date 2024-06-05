@@ -10,7 +10,7 @@ import { useBlogContext } from "../../../context/Context";
 function SignIn({ setSignReq }) {
   const [form, setForm] = useState({
     email: "",
-    password: "",
+    password: "",a
   });
 
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileHome from "./Activities/ProfileHome";
 import ProfileList from "./ProfileList";
 import ProfileAbout from "./ProfileAbout";
@@ -6,6 +6,9 @@ import Modal from "../../../utils/Modal";
 import { LiaTimesSolid } from "react-icons/lia";
 import { discoverActions } from "../../../data";
 import { IoSettingsSharp } from "react-icons/io5";
+import EditProfile from "./EditProfile";
+import { useBlogContext } from "../../../context/Context";
+import { useParams } from "react-router-dom";
 
 function Profile() {
   const activities = [
@@ -23,14 +26,29 @@ function Profile() {
     },
   ];
   const [currentActive, setCurrentActive] = useState(activities[0]);
+
   const [modal, setModal] = useState(false);
+  const [EditModal, setEditModal] = useState(false);
+  const { allUser, currentUser } = useBlogContext();
+  const { userId } = useParams();
+  console.log(userId);
+  const getData = allUser.find((x) => x.userId === userId);
+// console.log(getData.id);
+// const getData = allUser.find((x)=> x.id === currentUser?.uid);
+console.log(allUser);
+
+  useEffect(() => {
+    if (!getData?.userId) {
+      console.error(`fnd for user ID: ${userId}`);
+    }
+  }, [getData, userId]);
   return (
     <section className="size flex gap-[4rem] relative">
       {/* user activity */}
       <div className="mt-[9rem] flex-[2] ">
         <div className="flex flex-col sm:flex-row sm:items-end items-start gap-4 ">
           <h2 className="text-3xl sm:text-5xl font-bold capitalize">
-            Rafi roh
+            {getData?.name}
           </h2>
           <div className="flex gap-3">
             <p className="text-gray-500 text-xs sm:text-sm">Follower(2)</p>
@@ -56,7 +74,7 @@ function Profile() {
             </div>
           ))}
         </div>
-        <currentActive.comp />
+        <currentActive.comp getData={getData} setEditModal={setEditModal} />
         <button
           onClick={() => setModal(true)}
           className="fixed top-[8rem] right-0 w-[2rem] h-[2rem] bg-black text-white
@@ -88,15 +106,19 @@ function Profile() {
               src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
               alt="user image"
             />
-            <h2 className="py-2 font-bold capitalize">
-              {"getUserData?.username"}
-            </h2>
+            <h2 className="py-2 font-bold capitalize">{getData?.name}</h2>
             <p className="text-gray-500 first-letter:uppercase text-sm">
-              {"getUserData?.bio"}
+              {getData?.bio}
             </p>
-            <button className="text-green-700 pt-6 text-sm w-fit">
-              Edit Profile
-            </button>
+            {currentUser?.uid === getData?.userId && (
+              <button
+                onClick={() => setEditModal(true)}
+                className="text-green-700 pt-6 text-sm w-fit"
+              >
+                Edit Profile
+              </button>
+            )}
+
             {/* nav */}
 
             <div className="flex-[1] flex items-center flex-wrap gap-3 pt-8">
@@ -107,6 +129,13 @@ function Profile() {
           </div>
         </div>
       </Modal>
+      {EditModal && (
+        <EditProfile
+          getData={getData}
+          EditModal={EditModal}
+          setEditModal={setEditModal}
+        />
+      )}
     </section>
   );
 }
