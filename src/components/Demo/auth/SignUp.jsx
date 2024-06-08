@@ -20,7 +20,7 @@ function SignUp({ setSignReq, setModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+   
     if (
       form.name == "" ||
       form.email == "" ||

@@ -21,7 +21,7 @@ function Auth({ modal, setModal }) {
   const googleAuthentic = async () => {
     try {
       const user = (await signInWithPopup(auth, provider)).user;
-
+// ! create a reference in db by name
       const ref = doc(db, "users", user.uid);
       const userDoc = await getDoc(ref);
 

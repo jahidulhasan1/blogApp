@@ -2,14 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase/firebase";
 import Loading from "../components/loading/Loading";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 
 const BlogContext = createContext();
 
@@ -18,10 +11,12 @@ function Context({ children }) {
   const [currentUser, setCurrentUser] = useState(false);
   const [allUser, setAllUser] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [publish, setPublish] = useState(false);
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
+      
       if (user) {
-        setCurrentUser(user);
+        setCurrentUser( user);
       } else {
         setCurrentUser(null);
       }
@@ -34,6 +29,7 @@ function Context({ children }) {
   }, [currentUser]);
 
   // get users
+  // fetch data
   useEffect(() => {
     const getUsers = () => {
       const postRef = query(collection(db, "users"));
@@ -79,6 +75,8 @@ function Context({ children }) {
         allUser,
         setAllUser,
         userLoading,
+        publish,
+        setPublish,
       }}
     >
       {loading ? <Loading /> : children}
