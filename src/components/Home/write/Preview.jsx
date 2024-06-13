@@ -66,7 +66,7 @@ function Preview({ setPublish, description, title }) {
       await addDoc(collections, {
         userId: currentUser?.uid,
         title: preview.title,
-        postImg: imageUrl,
+        postImg: uRL,
         desc,
         tags,
         created: Date.now(),

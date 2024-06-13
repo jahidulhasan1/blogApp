@@ -14,9 +14,8 @@ function Context({ children }) {
   const [publish, setPublish] = useState(false);
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
-      
       if (user) {
-        setCurrentUser( user);
+        setCurrentUser(user);
       } else {
         setCurrentUser(null);
       }
@@ -29,7 +28,7 @@ function Context({ children }) {
   }, [currentUser]);
 
   // get users
-  // fetch data
+  // fetch user data
   useEffect(() => {
     const getUsers = () => {
       const postRef = query(collection(db, "users"));

@@ -1,32 +1,19 @@
 import React from "react";
+import useFetch from "../../Hooks/useFetch";
+import Loading from "../../loading/Loading";
+import PostCard from "./PostCard";
 
 function Post() {
+  const { data, loading } = useFetch("posts");
+
   return (
-    <div className="w-[100%]">
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div><div className="w-[100%]">po0st</div>   <div className="w-[100%]">
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div><div className="w-[100%]">po0st</div> <div className="w-[100%]">
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>
-      <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div><div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>
-    </div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>
-    </div><div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>
-    </div> <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>  <div className="w-[100%]">po0st</div>
-    </div>
+    <section>
+      {loading ? (
+        <Loading />
+      ) : (
+        data.map((post, i) => <PostCard post={post} key={i} />)
+      )}
+    </section>
   );
 }
 
