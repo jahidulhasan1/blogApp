@@ -1,15 +1,14 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
-function useFetch(collectionName) {
+function useSingleFetch(collectionName, id, subCol) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const getUsers = () => {
-      const postRef = query(collection(db, collectionName));
+    const getSignleData = () => {
+      const postRef = query(collection(db, collectionName, id, subCol));
       onSnapshot(postRef, (snapshot) => {
         setData(
           snapshot.docs.map((doc) => ({
@@ -21,9 +20,10 @@ function useFetch(collectionName) {
         setLoading(false);
       });
     };
-    getUsers();
+    getSignleData();
   }, []);
+  console.log(data);
   return { data, loading };
 }
 
-export default useFetch;
+export default useSingleFetch;

@@ -7,11 +7,15 @@ import { useBlogContext } from "../../../context/Context";
 import { readTime } from "../../../utils/Helper";
 import moment from "moment/moment";
 import SavePost from "./SavePost";
+import useFetch from "../../Hooks/useFetch";
+import Action from "./actions/Action";
 
 const PostsCard = ({ post }) => {
   const { title, desc, created, postImg, userId, name } = post;
-  const { currentUser, allUser } = useBlogContext();
-  const user = allUser.find((x) => x.userId === userId);
+  const { currentUser } = useBlogContext();
+  const { data, loading } = useFetch("users");
+  const userData = data && data.find((x) => x.userId === userId);
+
   const navigate = useNavigate();
   return (
     <>
@@ -20,7 +24,7 @@ const PostsCard = ({ post }) => {
         className="flex  flex-col sm:flex-row gap-4 cursor-pointer "
       >
         <div className="flex-[2.5]">
-          <p className="pb-2 font-semibold capitalize">{user.name}</p>
+          <p className="pb-2 font-semibold capitalize">{userData?.name}</p>
           <h2 className="text-xl font-bold line-clamp-2 leading-6 capitalize">
             {title}
           </h2>
@@ -39,16 +43,14 @@ const PostsCard = ({ post }) => {
         </div>
       </div>
 
-      <div className="flex items-center justify-between w-full md:w-[70%] mt-[2rem] md:mt-0">
+      <div className="flex items-center border justify-between w-full md:w-[70%] mt-[2rem] md:mt-0">
         <p className="text-xs text-gray-600">
           {readTime({ __html: desc })} min read .
           {moment(created).format("MMM DD")}
         </p>
-        <div className="flex items-center gap-3">
-          <SavePost post={post} />
-          {/* {currentUser?.uid === userId && (
-            <Actions postId={postId} title={title} desc={desc} />
-          )} */}
+        <div className="flex justify-center items-center gap-[1rem]">
+          <SavePost post={post} userData={userData} />
+          {currentUser?.uid === userId && <Action post={post} />}
         </div>
       </div>
     </>
