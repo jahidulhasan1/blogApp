@@ -18,6 +18,7 @@ function Context({ children }) {
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
+        setAllUser([]);
       }
       setLoading(false);
     });

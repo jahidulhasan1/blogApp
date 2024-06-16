@@ -9,6 +9,7 @@ function ProfileList({ getData }) {
   const { currentUser } = useBlogContext();
   // posts save
   const { data,loading } = useSingleFetch("users", currentUser?.uid, "savePost");
+ 
   return (
     <>
       {currentUser?.uid === getData?.userId ? (

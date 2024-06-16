@@ -10,7 +10,7 @@ function ProfileHome({ getuser }) {
   const { currentUser } = useBlogContext();
 
   const userPost =
-    data && data?.filter((post) => post.userId === currentUser.uid);
+    data && data?.filter((post) => post.userId === currentUser?.uid);
   return (
     <>
       {userPost.length === 0 ? (

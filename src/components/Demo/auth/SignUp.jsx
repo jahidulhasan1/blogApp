@@ -20,7 +20,7 @@ function SignUp({ setSignReq, setModal }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     if (
       form.name == "" ||
       form.email == "" ||
@@ -45,7 +45,7 @@ function SignUp({ setSignReq, setModal }) {
         if (!userDoc.exists()) {
           await setDoc(ref, {
             userId: user.uid,
-            username: form.name,
+            name: form.name,
             email: form.email,
             userImg: "",
             bio: "",

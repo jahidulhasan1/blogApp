@@ -5,23 +5,24 @@ import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 import useSingleFetch from "../../Hooks/useSingleFetch";
+
 function SavePost({ post }) {
   const { currentUser, allUser } = useBlogContext();
-
+  const isUser =currentUser ? currentUser?.uid : post?.id
   const [isSave, setIsSave] = useState(false);
-  const { data } = useSingleFetch("users", currentUser?.uid, "savePost");
+  const { data } = useSingleFetch("users", isUser , "savePost");
 
-
-  
   useEffect(() => {
-    setIsSave(data && data.find((x) => x.id === post.id));
-  }, [data, post.id]);
+    if (data) {
+      setIsSave(data.some((x) => x.id === post.id));
+    }
+  }, [data, post.id, currentUser]);
 
   const handelSavePost = async () => {
     try {
       if (currentUser) {
         // create a collection
-        const saveRef =  doc(
+        const saveRef = doc(
           db,
           "users",
           currentUser?.uid,
@@ -31,22 +32,24 @@ function SavePost({ post }) {
 
         if (isSave) {
           await deleteDoc(saveRef);
-
-          toast.success("post Has been unSaaved");
+          setIsSave(false);
+          toast.success("Post has been unsaved");
         } else {
           await setDoc(saveRef, {
             ...post,
           });
-          toast.success("post saved");
+          setIsSave(true);
+          toast.success("Post saved");
         }
+      } else {
+        console.log("User not logged in");
       }
     } catch (error) {
       toast.error(error.message);
-      console.log("save post firevbase", error);
+      console.log("Save post firebase", error);
     }
-
-    setIsSave(true);
   };
+
   return (
     <>
       <button onClick={handelSavePost} className="hover:opacity-60">

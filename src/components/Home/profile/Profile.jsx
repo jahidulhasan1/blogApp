@@ -33,9 +33,9 @@ function Profile() {
   const { userId } = useParams();
   console.log(userId);
   const getData = allUser.find((x) => x.userId === userId);
-// console.log(getData.id);
-// const getData = allUser.find((x)=> x.id === currentUser?.uid);
-console.log(allUser);
+  console.log(getData);
+  // console.log(getData.id);
+  // const getData = allUser.find((x)=> x.id === currentUser?.uid);
 
   useEffect(() => {
     if (!getData?.userId) {
@@ -101,11 +101,13 @@ console.log(allUser);
           </div>
           {/* profile details */}
           <div className="sticky top-7 flex flex-col justify-between">
-            <img
-              className="w-[3.5rem] h-[3.5rem] object-cover rounded-full"
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-              alt="user image"
-            />
+            {/* {getData.imgUrl && (
+              <img
+                className="w-[3.5rem] h-[3.5rem] object-cover rounded-full"
+                src={getData?.imgUrl}
+                alt="user image"
+              />
+            )} */}
             <h2 className="py-2 font-bold capitalize">{getData?.name}</h2>
             <p className="text-gray-500 first-letter:uppercase text-sm">
               {getData?.bio}

@@ -13,7 +13,7 @@ import Action from "./actions/Action";
 const PostsCard = ({ post }) => {
   const { title, desc, created, postImg, userId, name } = post;
   const { currentUser } = useBlogContext();
-  const { data, loading } = useFetch("users");
+  const { data } = useFetch("users");
   const userData = data && data.find((x) => x.userId === userId);
 
   const navigate = useNavigate();
