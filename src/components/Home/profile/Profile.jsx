@@ -9,6 +9,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import EditProfile from "./EditProfile";
 import { useBlogContext } from "../../../context/Context";
 import { useParams } from "react-router-dom";
+import useSingleFetch from "../../Hooks/useSingleFetch";
 
 function Profile() {
   const activities = [
@@ -34,8 +35,9 @@ function Profile() {
   console.log(userId);
   const getData = allUser.find((x) => x.userId === userId);
   console.log(getData);
-  // console.log(getData.id);
-  // const getData = allUser.find((x)=> x.id === currentUser?.uid);
+
+  const { data: follows } = useSingleFetch("users", userId, "follows");
+  const { data: followers } = useSingleFetch("users", userId, "followers");
 
   useEffect(() => {
     if (!getData?.userId) {
@@ -51,8 +53,12 @@ function Profile() {
             {getData?.name}
           </h2>
           <div className="flex gap-3">
-            <p className="text-gray-500 text-xs sm:text-sm">Follower(2)</p>
-            <p className="text-gray-500 text-xs sm:text-sm">Following(5)</p>
+            <p className="text-gray-500 text-xs sm:text-sm">
+              Followers({followers.length})
+            </p>
+            <p className="text-gray-500 text-xs sm:text-sm">
+              Following({follows.length})
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-5 mt-[01rem] border-b border-gray-300 mb-[3rem]">

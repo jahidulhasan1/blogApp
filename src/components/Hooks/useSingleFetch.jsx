@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
 function useSingleFetch(collectionName, id, subCol) {
-  console.log(collection, id, subCol);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 

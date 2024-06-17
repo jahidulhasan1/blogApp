@@ -5,8 +5,7 @@ function DropDown({ children, showDrop, setShowDrop }) {
 
   useEffect(() => {
     const clickOutSide = (e) => {
-      if (!dropRef.current.contains(e.target)) {
-        // Clicked inside the dropdown
+      if (showDrop && dropRef.current && !dropRef.current.contains(e.target)) {
         setShowDrop(false);
       }
     };

@@ -9,7 +9,7 @@ function Home() {
         <Post />
       </div>
       <div className="hidden md:inline-block md:w-[21rem] p-7 border-l border-gray-300 ">
-        <h3>who to follow</h3>
+        <h3>who to follow? </h3>
         <Follow />
       </div>
     </section>
