@@ -10,17 +10,16 @@ import SavePost from "./SavePost";
 import useFetch from "../../Hooks/useFetch";
 import Action from "./actions/Action";
 
-const PostsCard = ({ post }) => {
+const PostsCard = ( {post} ) => {
   const { title, desc, created, postImg, userId, name } = post;
   const { currentUser } = useBlogContext();
   const { data } = useFetch("users");
   const userData = data && data.find((x) => x.userId === userId);
-
   const navigate = useNavigate();
   return (
     <>
       <div
-        // onClick={() => navigate(`/post/${postId}`)}
+        onClick={() => navigate(`/post/${post.id}`)}
         className="flex  flex-col sm:flex-row gap-4 cursor-pointer "
       >
         <div className="flex-[2.5]">

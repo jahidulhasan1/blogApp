@@ -7,6 +7,7 @@ import { useBlogContext } from "./context/Context";
 import { Slide, ToastContainer } from "react-toastify";
 import Profile from "./components/Home/profile/Profile";
 import Write from "./components/Home/write/Write";
+import SinglePost from "./components/common/posts/SinglePost";
 
 function App() {
   const { currentUser } = useBlogContext();
@@ -21,7 +22,7 @@ function App() {
 
         <Route path="/write" element={<Write />} />
 
-
+        <Route path="/post/:postId" element={<SinglePost />} />
         <Route
           path="*"
           element={<Navigate to={!currentUser ? "/demo" : "/"} />}

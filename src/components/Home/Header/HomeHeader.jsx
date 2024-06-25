@@ -19,8 +19,8 @@ function HomeHeader() {
   const { allUser, currentUser, userLoading, publish, setPublish } =
     useBlogContext();
 
-  const getuser = allUser.find((x) => x.userId === currentUser?.uid);
-
+  const getuser = allUser.find((x) => x?.userId === currentUser?.uid);
+ 
   return (
     <header className="border-b border-gray-200">
       {userLoading && <Loading />}

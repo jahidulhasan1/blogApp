@@ -18,7 +18,7 @@ function Action({ post }) {
         <Button click="" name="edit story" />
         <Button click="" name="delete story" />
       </DropDown>
-      {/* <Modal modal={modal} setModal={setModal}/> */}
+      {/* <Modal modal={modal} setModal={setModal} /> */}
     </div>
   );
 }
@@ -28,6 +28,7 @@ export default Action;
 const Button = ({ click, name }) => {
   return (
     <button
+    onClick={click}
       className={`p-2 hover:bg-gray-100 hover:text-black/80 w-full text-sm text-left 
         ${name === "delete story" && "text-red-600"}
         `}

@@ -12,7 +12,7 @@ function Follow() {
     data && data.slice(0, count).filter((x) => x?.userId !== currentUser?.uid);
   const navigate = useNavigate();
   const loadMoreFn = () => {
-    setCount((prev)=> users.length < data.length && prev+1);
+    setCount((prev) => users.length < data.length && prev + 1);
   };
   return (
     <>

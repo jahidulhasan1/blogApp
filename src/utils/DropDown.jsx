@@ -1,18 +1,21 @@
 import React, { useEffect, useRef } from "react";
 
-function DropDown({ children, showDrop, setShowDrop }) {
+function DropDown({ showDrop, setShowDrop,children }) {
   const dropRef = useRef(null);
-
   useEffect(() => {
     const clickOutSide = (e) => {
       if (showDrop && dropRef.current && !dropRef.current.contains(e.target)) {
         setShowDrop(false);
       }
     };
+
     window.addEventListener("mousedown", clickOutSide);
 
-    return () => window.removeEventListener("mousedown", clickOutSide);
-  }, []);
+    // Cleanup function to remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("mousedown", clickOutSide);
+    };
+  }, [showDrop, setShowDrop]);
 
   return (
     <>
