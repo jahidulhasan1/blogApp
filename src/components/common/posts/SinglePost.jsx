@@ -18,6 +18,7 @@ function SinglePost() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(false);
+
   const [showRecomendation, setShowRecomendation] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
@@ -27,8 +28,7 @@ function SinglePost() {
         const getPost = await getDoc(postRef);
         if (getPost.exists()) {
           const postData = getPost.data();
-          console.log(postData.userId);
-          console.log(currentUser.uid);
+
           if (postData?.userId) {
             const userRef = doc(db, "users", postData.userId);
 
@@ -95,7 +95,7 @@ function SinglePost() {
             </div>
             <div className="flex justify-between border-b border-t border-gray-200">
               <div className="flex items-center gap-5 py-[0.5rem]">
-                <Like />
+                <Like postId={postId} />
                 <Comments />
               </div>
               <div className="flex items-center pt-2 gap-5 ">
