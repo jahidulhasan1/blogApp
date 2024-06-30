@@ -7,7 +7,10 @@ import { useBlogContext } from "../../../../context/Context";
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebase";
 import { toast } from "react-toastify";
-function Action({ postId, title, description, post: postid }) {
+function Action({ postId, title, description }) {
+  console.log(postId);
+  console.log(title);
+  console.log(description);
   const [showDrop, setShowDrop] = useState(false);
   const navigate = useNavigate();
 
@@ -26,13 +29,13 @@ function Action({ postId, title, description, post: postid }) {
       const ref = doc(db, "posts", postId);
       const likeref = doc(db, "posts", postId, "likes", currentUser?.uid);
       const comref = doc(db, "posts", postId, "comments", currentUser?.uid);
-      const saveRef = doc(db, "users", currentUser?.uid, "savePost", postid);
+      const saveRef = doc(db, "users", currentUser?.uid, "savePost", postId);
       await deleteDoc(ref);
       await deleteDoc(likeref);
       await deleteDoc(comref);
-      await deleteDoc(saveRef);
-      navigate("/");
+      await deleteDoc(saveRef); 
       toast.success("post has been deleted");
+      navigate("/");
     } catch (error) {
       console.log(error);
       toast.error(error.message);

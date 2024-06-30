@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase/firebase";
 
 function useFetch(collectionName) {
-  console.log(collectionName);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 

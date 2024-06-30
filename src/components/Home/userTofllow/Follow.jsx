@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 function Follow() {
   const { data, loading } = useFetch("users");
   const { currentUser } = useBlogContext();
-  const [count, setCount] = useState(2);
-  console.log(data.length);
+  const [count, setCount] = useState(1);
   const users =
     data && data.slice(0, count).filter((x) => x?.userId !== currentUser?.uid);
   const navigate = useNavigate();
   const loadMoreFn = () => {
     setCount((prev) => users.length < data.length && prev + 1);
   };
+  console.log(count);
   return (
     <>
       {users.map((user, i) => (

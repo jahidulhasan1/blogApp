@@ -15,6 +15,7 @@ import Action from "./actions/Action";
 import SharePost from "./actions/SharePost";
 import RecomendedPost from "./RecomendedPost";
 import Comments from "../comments/Comments";
+import TableOfContents from "../../../utils/TableContents";
 function SinglePost() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
@@ -57,6 +58,11 @@ function SinglePost() {
   const { title, desc, postImg, name, created, imgUrl, userId } = post;
   const { currentUser } = useBlogContext();
   const navigate = useNavigate();
+
+  
+
+ 
+
   return (
     <>
       {loading ? (
@@ -96,12 +102,14 @@ function SinglePost() {
             <div className="flex justify-between border-b border-t border-gray-200">
               <div className="flex items-center gap-5 py-[0.5rem]">
                 <Like postId={postId} />
-                <CommentBtn  />
+                <CommentBtn />
               </div>
               <div className="flex items-center pt-2 gap-5 ">
                 {post && <SavePost post={post} />}
                 <SharePost />
-                {currentUser.uid === userId && <Action  postId={postId} post={post?.id}  title = {title} description = {desc} />}
+                {currentUser.uid === userId && (
+                  <Action postId={postId} title={title} description={desc} />
+                )}
               </div>
             </div>
             <div className="mt-[3rem]">
@@ -117,6 +125,7 @@ function SinglePost() {
                 dangerouslySetInnerHTML={{ __html: desc }}
               />
             </div>
+           
           </section>
 
           {post && showRecomendation && <RecomendedPost post={post} />}

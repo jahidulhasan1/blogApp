@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase/firebase";
 import Loading from "../components/loading/Loading";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import useFetch from "../components/Hooks/useFetch";
 
 const BlogContext = createContext();
 
@@ -17,6 +18,7 @@ function Context({ children }) {
 const [updateData,setUpdateData] = useState({});
 const [title, setTitle] = useState("");
 const [description, setDescription] = useState("");
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -70,6 +72,7 @@ const [description, setDescription] = useState("");
 
   //   fetchData();
   // }, []);
+  const { data: postData, loading: postLoading } = useFetch("posts");
   return (
     <BlogContext.Provider
       value={{
@@ -91,7 +94,9 @@ const [description, setDescription] = useState("");
         title,
         setTitle,
         description,
-        setDescription
+        setDescription,
+        postData,
+        postLoading
       }}
     >
       {loading ? <Loading /> : children}

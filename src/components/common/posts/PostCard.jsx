@@ -11,17 +11,8 @@ import useFetch from "../../Hooks/useFetch";
 import Action from "./actions/Action";
 
 const PostsCard = ({ post }) => {
-  const {
-    title,
-    desc,
-    created,
-    postImg,
-    userId,
-    name,
-    postId,
-    id: postid,
-  } = post;
-
+  const { title, desc, created, postImg, userId, name, id: postid } = post;
+  console.log(post);
   const { currentUser } = useBlogContext();
   const { data } = useFetch("users");
   const userData = data && data.find((x) => x.userId === userId);
@@ -61,10 +52,9 @@ const PostsCard = ({ post }) => {
           <SavePost post={post} userData={userData} />
           {currentUser?.uid === userId && (
             <Action
-              postId={postId}
+              postId={postid}
               title={title}
               description={desc}
-              post={postid}
             />
           )}
         </div>
