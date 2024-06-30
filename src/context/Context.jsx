@@ -12,6 +12,9 @@ function Context({ children }) {
   const [allUser, setAllUser] = useState([]);
   const [loading, setLoading] = useState(true);
   const [publish, setPublish] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [commentLength, setCommentLength] = useState(0);
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -77,6 +80,10 @@ function Context({ children }) {
         userLoading,
         publish,
         setPublish,
+        showModal,
+        setShowModal,
+        commentLength,
+        setCommentLength,
       }}
     >
       {loading ? <Loading /> : children}

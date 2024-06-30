@@ -12,19 +12,32 @@ import {
   BiLogoLinkedinSquare,
 } from "react-icons/bi";
 import { CiShare1 } from "react-icons/ci";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 function SharePost() {
   const [showDrop, setShowDrop] = useState(false);
-  console.log(showDrop);
-  const { path } = useLocation();
-  const copyLink = () => {};
+
+  const path = window.location.href;
+  console.log(path);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(path);
+      toast.success("copied");
+      setShowDrop(false);
+    } catch (error) {
+      toast.error(error.message);
+      setShowDrop(false); 
+    }
+  };
+
   return (
     <div className="relative flex items-center">
       <button onClick={() => setShowDrop(!showDrop)}>
         {<CiShare1 className="text-2xl " />}
       </button>
       <DropDown showDrop={showDrop} setShowDrop={setShowDrop}>
-        <Button click={copyLink} title="Copy link" icon={<BiLink />} />
+        <Button title="Copy link" click={copyLink} icon={<BiLink />} />
 
         <TwitterShareButton url={path}>
           <Button title="Share On Twitter" icon={<BiLogoTwitter />} />
@@ -43,12 +56,14 @@ function SharePost() {
 export default SharePost;
 
 const Button = ({ click, title, icon }) => {
-  <button
-    className="p-2 hover:bg-gray-200 hover:text-black/80 w-full text-sm text-left
-  flex items-center gap-2 cursor-pointer text-gray-500"
-    onClick={click}
-  >
-    {" "}
-    {icon} {title}
-  </button>;
+  return (
+    <button
+      className="p-2 hover:bg-gray-200 hover:text-black/80 w-full text-sm text-left
+    flex items-center gap-2 cursor-pointer text-gray-500"
+      onClick={click}
+    >
+      {" "}
+      {icon} {title}
+    </button>
+  );
 };

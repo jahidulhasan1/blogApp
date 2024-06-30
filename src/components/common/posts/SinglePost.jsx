@@ -9,11 +9,12 @@ import { useBlogContext } from "../../../context/Context";
 import { readTime } from "../../../utils/Helper";
 import moment from "moment/moment";
 import Like from "./actions/Like";
-import Comments from "./actions/Comments";
+import CommentBtn from "./actions/CommentBtn";
 import SavePost from "./SavePost";
 import Action from "./actions/Action";
 import SharePost from "./actions/SharePost";
 import RecomendedPost from "./RecomendedPost";
+import Comments from "../comments/Comments";
 function SinglePost() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
@@ -52,7 +53,6 @@ function SinglePost() {
 
     fetchData();
   }, [postId, post?.userId]);
-  console.log(post);
 
   const { title, desc, postImg, name, created, imgUrl, userId } = post;
   const { currentUser } = useBlogContext();
@@ -96,7 +96,7 @@ function SinglePost() {
             <div className="flex justify-between border-b border-t border-gray-200">
               <div className="flex items-center gap-5 py-[0.5rem]">
                 <Like postId={postId} />
-                <Comments />
+                <CommentBtn  />
               </div>
               <div className="flex items-center pt-2 gap-5 ">
                 {post && <SavePost post={post} />}
@@ -120,7 +120,7 @@ function SinglePost() {
           </section>
 
           {post && showRecomendation && <RecomendedPost post={post} />}
-          {/* <Comments postId={postId} /> */}
+          <Comments postId={postId} />
         </>
       )}
     </>

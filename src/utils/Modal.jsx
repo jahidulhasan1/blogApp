@@ -1,5 +1,4 @@
 function Modal({ children, modal, setModal }) {
-
   return (
     <>
       <div
