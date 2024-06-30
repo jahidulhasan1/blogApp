@@ -101,7 +101,7 @@ function SinglePost() {
               <div className="flex items-center pt-2 gap-5 ">
                 {post && <SavePost post={post} />}
                 <SharePost />
-                {currentUser.uid === userId && <Action />}
+                {currentUser.uid === userId && <Action  postId={postId} post={post?.id}  title = {title} description = {desc} />}
               </div>
             </div>
             <div className="mt-[3rem]">

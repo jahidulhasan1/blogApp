@@ -10,8 +10,18 @@ import SavePost from "./SavePost";
 import useFetch from "../../Hooks/useFetch";
 import Action from "./actions/Action";
 
-const PostsCard = ( {post} ) => {
-  const { title, desc, created, postImg, userId, name } = post;
+const PostsCard = ({ post }) => {
+  const {
+    title,
+    desc,
+    created,
+    postImg,
+    userId,
+    name,
+    postId,
+    id: postid,
+  } = post;
+
   const { currentUser } = useBlogContext();
   const { data } = useFetch("users");
   const userData = data && data.find((x) => x.userId === userId);
@@ -49,7 +59,14 @@ const PostsCard = ( {post} ) => {
         </p>
         <div className="flex justify-center items-center gap-[1rem]">
           <SavePost post={post} userData={userData} />
-          {currentUser?.uid === userId && <Action post={post} />}
+          {currentUser?.uid === userId && (
+            <Action
+              postId={postId}
+              title={title}
+              description={desc}
+              post={postid}
+            />
+          )}
         </div>
       </div>
     </>

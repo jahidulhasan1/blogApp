@@ -27,7 +27,7 @@ function SharePost() {
       setShowDrop(false);
     } catch (error) {
       toast.error(error.message);
-      setShowDrop(false); 
+      setShowDrop(false);
     }
   };
 

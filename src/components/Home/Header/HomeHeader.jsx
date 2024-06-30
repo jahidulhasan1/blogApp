@@ -4,23 +4,53 @@ import { CiSearch } from "react-icons/ci";
 import { LiaEditSolid } from "react-icons/lia";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdAllInbox, MdKeyboardArrowDown } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Search from "./Search";
 import Modal from "../../../utils/Modal";
 import UserModal from "./UserModal";
 import { useBlogContext } from "../../../context/Context";
 import Loading from "../../loading/Loading";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/firebase";
+import { toast } from "react-toastify";
 
 function HomeHeader() {
   const [modal, setModal] = useState(false);
   const [searchModal, setSearchModal] = useState(false);
-  const { pathname, hash, search } = useLocation();
+  const { pathname } = useLocation();
+  const path = pathname.split("/")[1];
+  const postId = pathname.split("/")[2];
 
-  const { allUser, currentUser, userLoading, publish, setPublish } =
-    useBlogContext();
-
+  console.log(path);
+  const [loading, setLoading] = useState(false);
+  const {
+    allUser,
+    currentUser,
+    userLoading,
+    publish,
+    setPublish,
+    title,
+    description,
+  } = useBlogContext();
+  const navigate = useNavigate();
   const getuser = allUser.find((x) => x?.userId === currentUser?.uid);
- 
+
+  const handleUpdate = async () => {
+    setLoading(true);
+    try {
+      const ref = doc(db, "posts", postId);
+      await updateDoc(ref, {
+        title,
+        desc: description,
+      });
+      navigate(`/post/${postId}`);
+      setLoading(false);
+      toast.success("post has been updated");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <header className="border-b border-gray-200">
       {userLoading && <Loading />}
@@ -47,6 +77,14 @@ function HomeHeader() {
               onClick={() => setPublish(true)}
             >
               publish
+            </button>
+          ) : path === "editPost" ? (
+            <button
+              onClick={handleUpdate}
+              className=" text-xl  rounded-full
+           text-black-500 px-2 py-1 bg-green-400"
+            >
+              save and Update{" "}
             </button>
           ) : (
             <Link
