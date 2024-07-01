@@ -9,6 +9,7 @@ import Profile from "./components/Home/profile/Profile";
 import Write from "./components/Home/write/Write";
 import SinglePost from "./components/common/posts/SinglePost";
 import EditPost from "./components/common/posts/actions/EditPost";
+import FilterPost from "./components/Demo/auth/FilterPost";
 
 function App() {
   const { currentUser } = useBlogContext();
@@ -25,6 +26,7 @@ function App() {
 
         <Route path="/post/:postId" element={<SinglePost />} />
         <Route path="/editPost/:postId" element={<EditPost />} />
+        <Route path="/filter/:tag" element={<FilterPost />} />
         <Route
           path="*"
           element={<Navigate to={!currentUser ? "/demo" : "/"} />}
