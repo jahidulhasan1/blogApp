@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import FollowButton from "../../Home/userTofllow/FollowButton";
 import Loading from "../../loading/Loading";
@@ -15,7 +15,7 @@ import Action from "./actions/Action";
 import SharePost from "./actions/SharePost";
 import RecomendedPost from "./RecomendedPost";
 import Comments from "../comments/Comments";
-import TableOfContents from "../../../utils/TableContents";
+
 function SinglePost() {
   const { postId } = useParams();
   const [post, setPost] = useState({});
@@ -55,13 +55,34 @@ function SinglePost() {
     fetchData();
   }, [postId, post?.userId]);
 
-  const { title, desc, postImg, name, created, imgUrl, userId } = post;
+  const { title, desc, postImg, username, created, imgUrl, userId } = post;
   const { currentUser } = useBlogContext();
   const navigate = useNavigate();
 
-  
-
- 
+  const isInitialRender = useRef(true);
+  console.log(isInitialRender);
+  useEffect(() => {
+    if (isInitialRender?.current) {
+      const incrementPageView = async () => {
+        try {
+          const ref = doc(db, "posts", postId);
+          await updateDoc(
+            ref,
+            {
+              pageViews: increment(1),
+            },
+            {
+              merge: true,
+            }
+          );
+        } catch (error) {
+          toast.error(error.message);
+        }
+      };
+      incrementPageView();
+    }
+    isInitialRender.current = false;
+  }, []);
 
   return (
     <>
@@ -70,23 +91,22 @@ function SinglePost() {
       ) : (
         <>
           <section className="w-[90%] md:w-[80%] lg:w-[60%] mx-auto py-[3rem] ">
-            {name && (
-              <h2 className="text-4xl font-extrabold capitalize">{title}</h2>
-            )}
+            <h2 className="text-4xl font-extrabold capitalize">{title}</h2>
+
             <div className="flex items-center gap-2 py-[2rem]">
               <img
                 onClick={() => navigate(`/profile/${userId}`)}
                 className="w-[3rem] h-[3rem] rounded-full object-cover cursor-pointer "
                 src={
-                  post.userImg
-                    ? post.userImg
+                  imgUrl
+                    ? imgUrl
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToiRnzzyrDtkmRzlAvPPbh77E-Mvsk3brlxQ&s"
                 }
                 alt="userImage"
               />
               <div>
                 <div className="capitalize">
-                  <span>{name} </span>
+                  <span className="font-bold">{username} </span>
                   {currentUser && currentUser?.uid !== userId && (
                     <FollowButton userId={userId} />
                   )}
@@ -107,7 +127,7 @@ function SinglePost() {
               <div className="flex items-center pt-2 gap-5 ">
                 {post && <SavePost post={post} />}
                 <SharePost />
-                {currentUser.uid === userId && (
+                {currentUser?.uid === userId && (
                   <Action postId={postId} title={title} description={desc} />
                 )}
               </div>
@@ -125,7 +145,6 @@ function SinglePost() {
                 dangerouslySetInnerHTML={{ __html: desc }}
               />
             </div>
-           
           </section>
 
           {post && showRecomendation && <RecomendedPost post={post} />}

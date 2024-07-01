@@ -50,7 +50,7 @@ function Profile() {
       <div className="mt-[9rem] flex-[2] ">
         <div className="flex flex-col sm:flex-row sm:items-end items-start gap-4 ">
           <h2 className="text-3xl sm:text-5xl font-bold capitalize">
-            {getData?.name}
+            {getData?.username}
           </h2>
           <div className="flex gap-3">
             <p className="text-gray-500 text-xs sm:text-sm">

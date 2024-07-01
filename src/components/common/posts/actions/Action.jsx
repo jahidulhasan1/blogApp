@@ -8,9 +8,8 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../../../firebase/firebase";
 import { toast } from "react-toastify";
 function Action({ postId, title, description }) {
-  console.log(postId);
-  console.log(title);
-  console.log(description);
+ 
+
   const [showDrop, setShowDrop] = useState(false);
   const navigate = useNavigate();
 
@@ -33,7 +32,7 @@ function Action({ postId, title, description }) {
       await deleteDoc(ref);
       await deleteDoc(likeref);
       await deleteDoc(comref);
-      await deleteDoc(saveRef); 
+      await deleteDoc(saveRef);
       toast.success("post has been deleted");
       navigate("/");
     } catch (error) {

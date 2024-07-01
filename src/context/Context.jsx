@@ -15,10 +15,10 @@ function Context({ children }) {
   const [publish, setPublish] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [commentLength, setCommentLength] = useState(0);
-const [updateData,setUpdateData] = useState({});
-const [title, setTitle] = useState("");
-const [description, setDescription] = useState("");
-
+  const [updateData, setUpdateData] = useState({});
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+const [modal, setModal]=useState(false)
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -96,7 +96,9 @@ const [description, setDescription] = useState("");
         description,
         setDescription,
         postData,
-        postLoading
+        postLoading,
+        modal, 
+        setModal
       }}
     >
       {loading ? <Loading /> : children}

@@ -7,16 +7,16 @@ import { toast } from "react-toastify";
 import useSingleFetch from "../../Hooks/useSingleFetch";
 
 function SavePost({ post }) {
-  const { currentUser, allUser } = useBlogContext();
-  const isUser =currentUser ? currentUser?.uid : post?.id
+  const { currentUser,modal, setModal } = useBlogContext();
+  const isUser = currentUser ? currentUser?.uid : post?.id;
   const [isSave, setIsSave] = useState(false);
-  const { data } = useSingleFetch("users", isUser , "savePost");
+  const { data } = useSingleFetch("users", isUser, "savePost");
 
   useEffect(() => {
     if (data) {
-      setIsSave(data.some((x) => x.id === post.id));
+      setIsSave(data.some((x) => x.id === post?.id));
     }
-  }, [data, post.id, currentUser]);
+  }, [data, post?.id, currentUser]);
 
   const handelSavePost = async () => {
     try {
@@ -43,6 +43,7 @@ function SavePost({ post }) {
         }
       } else {
         console.log("User not logged in");
+        setModal(true)
       }
     } catch (error) {
       toast.error(error.message);

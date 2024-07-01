@@ -7,7 +7,7 @@ import { useBlogContext } from "../../context/Context";
 function DemoHeader() {
   const { currentUser } = useBlogContext();
   const [active, setActive] = useState(false);
-  const [modal, setModal] = useState(false);
+  const {modal, setModal} =useBlogContext()
   useEffect(() => {
     const scrooll = () => {
       scrollY > 150 ? setActive(true) : setActive(false);

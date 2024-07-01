@@ -10,7 +10,7 @@ import { formateNum } from "../../../../utils/Helper";
 function Like({ postId }) {
   console.log(postId);
   const [isLiked, setIsLiked] = useState(false);
-  const { currentUser } = useBlogContext();
+  const { currentUser,modal, setModal } = useBlogContext();
   const { data } = useSingleFetch("posts", postId, "likes");
   useEffect(() => {
     setIsLiked(data && data.findIndex((x) => x.id === currentUser?.uid) !== -1);
@@ -29,6 +29,8 @@ function Like({ postId }) {
             userId: currentUser?.uid,
           });
         }
+      }else{
+        setModal(true);
       }
     } catch (error) {
       console.log(error);

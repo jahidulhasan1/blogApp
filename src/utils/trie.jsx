@@ -53,6 +53,6 @@ class Trie {
 
 export default function createTrie(words) {
   const trie = new Trie();
-  words.forEach((word) => trie.insert(word));
+  words && words?.forEach((word) => trie.insert(word));
   return trie;
 }

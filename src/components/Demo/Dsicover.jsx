@@ -4,7 +4,7 @@ import { discover, discoverActions } from "../../data";
 function Dsicover() {
   return (
     <div className="sticky top-[5rem]">
-      <div clas sName="border-b border-gray-300 pb-7">
+      <div className="border-b border-gray-300 pb-7">
         <h2 className="font-semibold">
           Discover More what Matter&apos;s to you
         </h2>

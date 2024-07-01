@@ -16,7 +16,7 @@ function ProfileList({ getData }) {
 
   return (
     <>
-      {currentUser?.uid === getData?.userId ? (
+      {currentUser&& currentUser?.uid === getData?.userId ? (
         <>
           <div className="flex flex-col gap-[2rem] mb-[2rem]">
             {data.length === 0 && (

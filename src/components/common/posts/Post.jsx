@@ -1,17 +1,18 @@
 import React from "react";
-import useFetch from "../../Hooks/useFetch";
+
 import Loading from "../../loading/Loading";
 import PostCard from "./PostCard";
+import { useBlogContext } from "../../../context/Context";
 
 function Post() {
-  const { data, loading } = useFetch("posts");
-
+  const { postData, postLoading } = useBlogContext();
+  console.log(postData);
   return (
     <section>
-      {loading ? (
+      {postLoading ? (
         <Loading />
       ) : (
-        data.map((post, i) => <PostCard post={post} key={i} />)
+        postData && postData.map((post, i) => <PostCard post={post} key={i} />)
       )}
     </section>
   );

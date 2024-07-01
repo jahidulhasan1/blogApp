@@ -15,14 +15,12 @@ function Search({ modal, setModal }) {
 
   const { postData } = useBlogContext();
   const navigate = useNavigate();
-
   // Create the trie index for fast autocomplete suggestions
   const trie = useMemo(
-    () => createTrie(postData.map((post) => post.title)),
-
+    () => createTrie(postData && postData?.map((post) => post.title)),
     [postData]
   );
-  console.log(trie);
+
   // Debounce the search input to limit API calls
   useEffect(() => {
     const debounceTimeout = setTimeout(async () => {
@@ -59,7 +57,6 @@ function Search({ modal, setModal }) {
 
   // Get autocomplete suggestions from the trie
   function getAutocompleteSuggestions(prefix) {
-    console.log(prefix);
     return trie.getWords(prefix);
   }
 
